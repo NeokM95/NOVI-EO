@@ -13,7 +13,7 @@ export function multiplyExercise(level){
 
 function multiply(numA, numB){
 
-    let sum = `${numA} * ${numB}`
+    let sum = `${numA} x ${numB}`
     let answer = numA * numB
     return [ sum, answer ]
 

@@ -13,8 +13,8 @@ export function divideExercise(level){
 
 function divide(numA, numB){
 
-    let sum = `${numA} * ${numB}`
-    let answer = numA * numB
+    let sum = `${numA} / ${numB}`
+    let answer = numA / numB
 
     return [ sum, answer ]
 
@@ -24,37 +24,37 @@ function divideLevelOne(){
     let numberA = Math.ceil(Math.random()*10)
     let numberB = Math.ceil(Math.random()*10)
 
-    divide(numberA, numberB)
-
-    while(divide()[0] % 1 !== 0){
-        divideLevelOne()
+    while ((numberA/numberB) % 1 !== 0){
+        numberA = Math.ceil(Math.random()*10)
+        numberB = Math.ceil(Math.random()*10)
     }
 
     return divide(numberA, numberB)
+
 }
 
 function divideLevelTwo(){
     let numberA = Math.ceil(Math.random()*10)
     let numberB = Math.ceil(Math.random()*100)
 
-    divide(numberA, numberB)
-
-    while(divide()[0] % 1 !== 0){
-        divideLevelTwo()
+    while ((numberA/numberB) % 1 !== 0){
+        numberA = Math.ceil(Math.random()*10)
+        numberB = Math.ceil(Math.random()*100)
     }
 
     return divide(numberA, numberB)
+
 }
 
 function divideLevelThree(){
     let numberA = Math.ceil(Math.random()*100)
     let numberB = Math.ceil(Math.random()*100)
 
-    divide(numberA, numberB)
-
-    while(divide()[0] % 1 !== 0){
-        divideLevelThree()
+    while ((numberA/numberB) % 1 !== 0){
+        numberA = Math.ceil(Math.random()*100)
+        numberB = Math.ceil(Math.random()*100)
     }
 
     return divide(numberA, numberB)
+
 }

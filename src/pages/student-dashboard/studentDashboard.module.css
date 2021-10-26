@@ -51,7 +51,7 @@
     font-family: 'Poppins', sans-serif;
     font-weight: bold;
     font-size: 16px;
-    color: white;
+    color: hsl(5, 0%, 50%);
 
     background-color: transparent;
 
@@ -64,7 +64,7 @@
 
     text-align: center;
 
-    border: 2px solid hsl(0, 0%, 100%);
+    border: 2px solid hsl(5, 0%, 50%);
     border-radius: 50%;
 
     cursor: pointer;
@@ -73,8 +73,8 @@
 
 .ex-btn:hover {
 
-    color: hsl(5, 0%, 80%);
-    border: 2px solid hsl(5, 0%, 80%);
+    color: hsl(0, 0%, 100%);
+    border: 2px solid hsl(0, 0%, 100%);
 
 }
 
@@ -86,8 +86,8 @@
 
 .ex-btn:disabled {
 
-    color: hsl(5, 0%, 50%);
-    border: 2px solid hsl(5, 0%, 50%);
+    color: hsl(0, 0%, 100%);
+    border: 2px solid hsl(0, 0%, 100%);
 
 }
 

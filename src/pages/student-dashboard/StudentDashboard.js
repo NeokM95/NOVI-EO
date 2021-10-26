@@ -1,13 +1,13 @@
 import { plusMinusExercise } from '../../exercises/PlusMinusExercise'
 import { multiplyExercise } from '../../exercises/MultiplyExercise'
 import { divideExercise } from '../../exercises/DivideExercise'
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import styles from './studentDashboard.module.css'
 
 function StudentDashboard() {
 
-    const [ readyToPlay, setReadyToPlay ] = useState( false );
+    const [ readyToPlay, setReadyToPlay ] = useState();
     const [ exercises, setExercises ] = useState( [] )
     const [ level, setLevel ] = useState( 1 )
     const [ exerciseCounter, setExerciseCounter ] = useState( 0 )
@@ -27,13 +27,42 @@ function StudentDashboard() {
 
     const numberInput = React.useRef( null );
 
-    useEffect( () => {
+    function createSum() {
 
-        let test = plusMinusExercise( level )
-        setCpuSum( test[0] )
-        setCpuAnswer( test[1] )
+        let randomExercise = exercises[randomEx(exercises)]
 
-    }, [ readyToPlay ] )
+        console.log(randomExercise)
+
+        let sum
+
+        switch ( randomExercise ){
+            case "plusMinus":
+                sum = plusMinusExercise( level )
+                setCpuSum( sum[0] )
+                setCpuAnswer( sum[1] )
+                break;
+            case "divide":
+                sum = divideExercise( level )
+                setCpuSum( sum[0] )
+                setCpuAnswer( sum[1] )
+                break;
+            case "multiply":
+                sum = multiplyExercise( level )
+                setCpuSum( sum[0] )
+                setCpuAnswer( sum[1] )
+                break;
+            default:
+                sum = plusMinusExercise( level )
+                setCpuSum( sum[0] )
+                setCpuAnswer( sum[1] )
+                break;
+        }
+
+    }
+
+    function randomEx(ex){
+        return Math.floor(Math.random()*ex.length)
+    }
 
     function submitAnswer( e ) {
 
@@ -54,9 +83,7 @@ function StudentDashboard() {
 
         if ( exerciseCounter < 9 ) {
             setTimeout( () => {
-                let test = plusMinusExercise( level )
-                setCpuSum( test[0] )
-                setCpuAnswer( test[1] )
+                createSum()
                 setMessage( '' )
                 setUserInput( '' )
                 togglePending( false )
@@ -116,7 +143,7 @@ function StudentDashboard() {
                     {/*</div>*/ }
                     <button className={ styles["play-btn"] } onClick={ () => {
                         setReadyToPlay( true )
-                        console.log( exercises )
+                        createSum()
                     } }>SPELEN
                     </button>
                 </>
