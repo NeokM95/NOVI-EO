@@ -12,8 +12,6 @@ export function plusMinusExercise(level){
 }
 
 // Logic toevoegen zodat uitkomst nooit < 0 kan zijn.
-
-
 function plusMinus(numA, numB){
     let sum
     let answer
@@ -22,7 +20,6 @@ function plusMinus(numA, numB){
     if ( Math.floor( Math.random() * 2 ) === 1){
         sum = `${numA} - ${numB}`
         answer = (numA - numB)
-
     } else {
         sum = `${numA} + ${numB}`
         answer = (numA + numB)

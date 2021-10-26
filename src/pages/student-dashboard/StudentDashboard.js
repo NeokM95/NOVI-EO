@@ -7,35 +7,49 @@ import styles from './studentDashboard.module.css'
 
 function StudentDashboard() {
 
-    const [ readyToPlay, setReadyToPlay ] = useState();
+    const [ readyToPlay, setReadyToPlay ] = useState( false );
+    const [ readyToStart, setReadyToStart] = useState(true)
     const [ exercises, setExercises ] = useState( [] )
     const [ level, setLevel ] = useState( 1 )
     const [ exerciseCounter, setExerciseCounter ] = useState( 0 )
     const [ goodAnswers, setGoodAnswers ] = useState( 0 )
     const [ falseAnswers, setFalseAnswers ] = useState( 0 )
 
-    const [ cpuSum, setCpuSum ] = useState()
-    const [ cpuAnswer, setCpuAnswer ] = useState()
-
     const [ pending, togglePending ] = useState( false )
     const [ userInput, setUserInput ] = useState( '' )
     const [ message, setMessage ] = useState( '' )
 
+    // States to store generated sum(String) and answer(number)
+    const [ cpuSum, setCpuSum ] = useState()
+    const [ cpuAnswer, setCpuAnswer ] = useState()
+
+    // States to toggle between selected and unselected exercises
     const [ plusMinusBtn, setPlusMinusBtn ] = useState( false )
     const [ multiplyBtn, setMultiplyBtn ] = useState( false )
     const [ divideBtn, setDivideBtn ] = useState( false )
 
+    // States to toggle themes of buttons for selected/ unselected exercises
+    const [ plusMinusBtnTheme, togglePlusMinusBtnTheme ] = useState( "unSelected-btn" )
+    const [ divideBtnTheme, toggleDivideBtnTheme ] = useState( "unSelected-btn" )
+    const [ multiplyBtnTheme, toggleMultiplyBtnTheme ] = useState( "unSelected-btn" )
+
+    // This useRef is to use .focus (Autofocus is set in submitAnswer() )
     const numberInput = React.useRef( null );
+
+    // Generates random number, depending on array length, to eventually grap element in exercises array
+    function randomEx( ex ) {
+        return Math.floor( Math.random() * ex.length )
+    }
 
     function createSum() {
 
-        let randomExercise = exercises[randomEx(exercises)]
-
-        console.log(randomExercise)
+        // exercises is an array and given as parameter so that randomEx can use .length
+        let randomExercise = exercises[randomEx( exercises )]
 
         let sum
 
-        switch ( randomExercise ){
+        // cases are equal to all possible keys from exercises ( useState([]) )
+        switch ( randomExercise ) {
             case "plusMinus":
                 sum = plusMinusExercise( level )
                 setCpuSum( sum[0] )
@@ -60,10 +74,6 @@ function StudentDashboard() {
 
     }
 
-    function randomEx(ex){
-        return Math.floor(Math.random()*ex.length)
-    }
-
     function submitAnswer( e ) {
 
         e.preventDefault()
@@ -71,6 +81,7 @@ function StudentDashboard() {
         togglePending( true )
         setExerciseCounter( exerciseCounter + 1 )
 
+        // check if userInput equals outcome of the sum.
         if ( cpuAnswer.toString() === userInput ) {
             setMessage( "Goedzo, je hebt het juiste antwoord gegeven!" )
             setGoodAnswers( goodAnswers + 1 )
@@ -80,7 +91,8 @@ function StudentDashboard() {
             setFalseAnswers( falseAnswers + 1 )
         }
 
-
+        // timeout is necessary to give the user some time to read the message,
+        // in the meanwhile input field and submit button are disabled.
         if ( exerciseCounter < 9 ) {
             setTimeout( () => {
                 createSum()
@@ -92,6 +104,22 @@ function StudentDashboard() {
         }
     }
 
+    function addEx( ex ) {
+        setExercises( [ ...exercises, ex ] )
+        setReadyToStart(false)
+    }
+
+    function removeEx( ex ) {
+
+        let index = exercises.indexOf( ex )
+        exercises.splice( index, 1 )
+
+        if (exercises.length < 1){
+            setReadyToStart(true)
+        }
+
+    }
+
     function reset() {
         setExerciseCounter( 0 )
         setGoodAnswers( 0 )
@@ -99,7 +127,16 @@ function StudentDashboard() {
         setMessage( '' )
         setUserInput( '' )
         togglePending( false )
+        setReadyToPlay( false )
+        setPlusMinusBtn( false )
+        setDivideBtn( false )
+        setMultiplyBtn( false )
+        setExercises( [] )
+        togglePlusMinusBtnTheme( "unSelected-btn" )
+        toggleMultiplyBtnTheme( "unSelected-btn" )
+        toggleDivideBtnTheme( "unSelected-btn" )
     }
+
 
     return (
         <div className={ styles["student-db-container"] }>
@@ -109,30 +146,49 @@ function StudentDashboard() {
                     <h1>Wat wil je oefenen?</h1>
 
                     <div className={ styles["ex-container"] }>
-                        <button className={ styles["ex-btn"] }
-                                disabled={ plusMinusBtn }
+                        <button className={ styles[`${ plusMinusBtnTheme }`] }
                                 onClick={ () => {
-                                    setPlusMinusBtn( true )
-                                    setExercises( [ "plusMinus", ...exercises ] )
+                                    if ( !plusMinusBtn ) {
+                                        togglePlusMinusBtnTheme( "selected-btn" )
+                                        addEx( "plusMinus" )
+                                        setPlusMinusBtn( true )
+                                    } else {
+                                        togglePlusMinusBtnTheme( "unSelected-btn" )
+                                        removeEx( "plusMinus" )
+                                        setPlusMinusBtn( false )
+                                    }
                                 } }>
                             Plus en min
                         </button>
-                        <button className={ styles[`ex-btn`] }
-                                disabled={ multiplyBtn }
+                        <button className={ styles[`${ multiplyBtnTheme }`] }
                                 onClick={ () => {
-                                    setMultiplyBtn( true )
-                                    setExercises( [ "multiply", ...exercises ] )
+                                    if ( !multiplyBtn ) {
+                                        toggleMultiplyBtnTheme( "selected-btn" )
+                                        addEx( "multiply" )
+                                        setMultiplyBtn( true )
+                                    } else {
+                                        toggleMultiplyBtnTheme( "unSelected-btn" )
+                                        removeEx( "multiply" )
+                                        setMultiplyBtn( false )
+                                    }
                                 } }>
                             Keer- sommen
                         </button>
-                        <button className={ styles["ex-btn"] }
-                                disabled={ divideBtn }
+                        <button className={ styles[`${ divideBtnTheme }`] }
                                 onClick={ () => {
-                                    setDivideBtn( true )
-                                    setExercises( [ "divide", ...exercises ] )
+                                    if ( !divideBtn ) {
+                                        toggleDivideBtnTheme( "selected-btn" )
+                                        addEx( "divide" )
+                                        setDivideBtn( true )
+                                    } else {
+                                        toggleDivideBtnTheme( "unSelected-btn" )
+                                        removeEx( "divide" )
+                                        setDivideBtn( false )
+                                    }
                                 } }>
                             Deel- sommen
                         </button>
+
                     </div>
 
                     {/*<h3>Gekozen level: { level } </h3>*/ }
@@ -141,10 +197,13 @@ function StudentDashboard() {
                     {/*    <button className={ styles["level-btn"] } onClick={ () => setLevel( 2 ) }>level 2</button>*/ }
                     {/*    <button className={ styles["level-btn"] } onClick={ () => setLevel( 3 ) }>level 3</button>*/ }
                     {/*</div>*/ }
-                    <button className={ styles["play-btn"] } onClick={ () => {
-                        setReadyToPlay( true )
-                        createSum()
-                    } }>SPELEN
+                    <button className={ styles["play-btn"] }
+                            disabled={readyToStart}
+                            onClick={ () => {
+                                setReadyToPlay( true )
+                                createSum()
+                                console.log( exercises )
+                            } }>SPELEN
                     </button>
                 </>
                 :

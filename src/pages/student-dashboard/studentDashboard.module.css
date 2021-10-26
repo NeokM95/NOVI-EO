@@ -84,11 +84,60 @@
 
 }
 
-.ex-btn:disabled {
+.selected-btn {
 
+    height: 110px;
+    width: 110px;
+
+    /*Waarom pakt hij deze niet in general?*/
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
     color: hsl(0, 0%, 100%);
-    border: 2px solid hsl(0, 0%, 100%);
 
+    background-color: transparent;
+
+    padding: 4px;
+    margin: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    border: 2px solid hsl(0, 0%, 100%);
+    border-radius: 50%;
+
+    cursor: pointer;
+
+}
+
+.unSelected-btn{
+    height: 110px;
+    width: 110px;
+
+    /*Waarom pakt hij deze niet in general?*/
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
+    color: hsl(5, 0%, 50%);
+
+    background-color: transparent;
+
+    padding: 4px;
+    margin: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    border: 2px solid hsl(5, 0%, 50%);
+    border-radius: 50%;
+
+    cursor: pointer;
 }
 
 .play-btn {
@@ -107,6 +156,15 @@
 
     color: hsl(5, 0%, 80%);
     border: 2px solid hsl(5, 0%, 80%);
+
+}
+
+.play-btn:disabled{
+
+    color: hsl(5, 0%, 80%);
+    border: 2px solid hsl(5, 0%, 80%);
+
+    cursor: not-allowed;
 
 }
 

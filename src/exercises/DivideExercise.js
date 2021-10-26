@@ -34,12 +34,12 @@ function divideLevelOne(){
 }
 
 function divideLevelTwo(){
-    let numberA = Math.ceil(Math.random()*10)
-    let numberB = Math.ceil(Math.random()*100)
+    let numberA = Math.ceil(Math.random()*100)
+    let numberB = Math.ceil(Math.random()*10)
 
     while ((numberA/numberB) % 1 !== 0){
-        numberA = Math.ceil(Math.random()*10)
-        numberB = Math.ceil(Math.random()*100)
+        numberA = Math.ceil(Math.random()*100)
+        numberB = Math.ceil(Math.random()*10)
     }
 
     return divide(numberA, numberB)
