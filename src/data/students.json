@@ -1,0 +1,146 @@
+[
+  {
+    "id": 1,
+    "name": "Noor",
+    "subgroups": {
+      "plusminus": 2,
+      "multiply": 3,
+      "division": 2,
+      "clock": 3,
+      "money": 1,
+      "geometry": 2
+    }
+  },
+  {
+    "id": 2,
+    "name": "Jason",
+    "subgroups": {
+      "plusminus": 3,
+      "multiply": 3,
+      "division": 3,
+      "clock": 3,
+      "money": 3,
+      "geometry": 3
+    }
+  },
+  {
+    "id": 3,
+    "name": "Phillipe",
+    "subgroups": {
+      "plusminus": 2,
+      "multiply": 2,
+      "division": 1,
+      "clock": 2,
+      "money": 3,
+      "geometry": 2
+    }
+  },
+  {
+    "id": 4,
+    "name": "Saar",
+    "subgroups": {
+      "plusminus": 1,
+      "multiply": 1,
+      "division": 2,
+      "clock": 1,
+      "money": 1,
+      "geometry": 1
+    }
+  },
+  {
+    "id": 5,
+    "name": "David",
+    "subgroups": {
+      "plusminus": 2,
+      "multiply": 3,
+      "division": 2,
+      "clock": 3,
+      "money": 3,
+      "geometry": 2
+    }
+  },
+  {
+    "id": 6,
+    "name": "Evelien",
+    "subgroups": {
+      "plusminus": 3,
+      "multiply": 3,
+      "division": 2,
+      "clock": 3,
+      "money": 3,
+      "geometry": 2
+    }
+  },
+  {
+    "id": 7,
+    "name": "Xiomara",
+    "subgroups": {
+      "plusminus": 3,
+      "multiply": 2,
+      "division": 2,
+      "clock": 2,
+      "money": 2,
+      "geometry": 1
+    }
+  },
+  {
+    "id": 8,
+    "name": "Bart",
+    "subgroups": {
+      "plusminus": 3,
+      "multiply": 2,
+      "division": 2,
+      "clock": 3,
+      "money": 3,
+      "geometry": 2
+    }
+  },
+  {
+    "id": 9,
+    "name": "Rogier",
+    "subgroups": {
+      "plusminus": 2,
+      "multiply": 1,
+      "division": 1,
+      "clock": 2,
+      "money": 2,
+      "geometry": 1
+    }
+  },
+  {
+    "id": 10,
+    "name": "Jamilla",
+    "subgroups": {
+      "plusminus": 2,
+      "multiply": 2,
+      "division": 2,
+      "clock": 3,
+      "money": 3,
+      "geometry": 2
+    }
+  },
+  {
+    "id": 11,
+    "name": "Damien",
+    "subgroups": {
+      "plusminus": 2,
+      "multiply": 1,
+      "division": 1,
+      "clock": 2,
+      "money": 1,
+      "geometry": 2
+    }
+  },
+  {
+    "id": 12,
+    "name": "Elise",
+    "subgroups": {
+      "plusminus": 2,
+      "multiply": 2,
+      "division": 2,
+      "clock": 3,
+      "money": 3,
+      "geometry": 2
+    }
+  }
+]

@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.auth-container{
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: radial-Gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+    height: 100vh;
+    width: 100vw;
+
+}
+
+.logout-btn{
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+
+    background-color: transparent;
+
+    font-family: 'Poppins', sans-serif;
+    color:white;
+
+    padding: 4px 24px;
+
+    border: 2px solid white;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+.logout-btn:hover{
+
+    color: hsl(5, 0%, 80%);
+    border: 2px solid hsl(5, 0%, 80%);
+
+}

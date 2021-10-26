@@ -1,0 +1,11 @@
+import AboutUs from './about-us/AboutUs'
+import AdminDashboard from './admin-dashbaord/AdminDashboard'
+import FAQ from './FAQ/FAQ'
+import Home from './home/Home'
+import Login from './login/Login'
+import StudentDashboard from './student-dashboard/StudentDashboard'
+import StudentExercise from './student-exercise/StudentExercise'
+import TeacherDashboard from './teacher-dashboard/TeacherDashboard'
+
+
+export { AboutUs, AdminDashboard,FAQ, Home, Login, StudentDashboard, StudentExercise, TeacherDashboard }

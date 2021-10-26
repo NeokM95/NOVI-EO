@@ -1,0 +1,14 @@
+.asl-btn-container {
+    width: fit-content;
+    display: inline-block;
+
+    /*Sorry Nova, maar als ik flex toepas in de cel van mn tabel gaat hij echt heel raar doen...*/
+    float: right;
+    margin-right: 10px;
+}
+
+.asl-btn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
