@@ -12,7 +12,7 @@ function UnauthorizedSection() {
 
 
     return (
-        <div>
+        <>
             {!isAuthorized && <HomeNavigation/> }
             <Switch>
                 <Route exact path="/">
@@ -29,7 +29,7 @@ function UnauthorizedSection() {
                 </Route>
             </Switch>
             {!isAuthorized && <Footer/> }
-        </div>
+        </>
     );
 }
 

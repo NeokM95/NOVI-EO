@@ -1,4 +1,4 @@
 .footer-container{
     background-color: hsl(192, 84%, 35%);
-    width: 100vw;
+    max-width: 100vw;
 }

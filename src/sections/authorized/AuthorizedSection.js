@@ -11,7 +11,7 @@ function AuthorizedSection() {
     const { logout, isAuthorized, isStudent, isTeacher, isAdmin } = useContext( AuthorizationContext )
 
     return (
-        <div>
+        <>
             <section className={ isAuthorized && styles[ "auth-container"] }>
                 <Switch>
                     <Route path="/student-dashboard">
@@ -26,7 +26,7 @@ function AuthorizedSection() {
                 </Switch>
                 { isAuthorized && <button className={ styles["logout-btn"] }onClick={ logout }>log uit</button> }
             </section>
-        </div>
+        </>
     );
 }
 

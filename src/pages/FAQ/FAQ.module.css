@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
 
-body {
+.according-body {
     background-color: hsl(0,0%,100%);
     font-family: 'rubik', sans-serif;
 }
 
 
-h1 {
+.title {
     text-align: center;
 }
 

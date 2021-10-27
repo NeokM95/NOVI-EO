@@ -1,5 +1,4 @@
 import styles from './FAQ.module.css'
-import { useState } from "react";
 
 function Faq() {
 
@@ -21,7 +20,7 @@ function Faq() {
 
         <div className={ styles["according-body"] }>
             <div className={ styles["accordion"] }>
-                <h1>FAQ</h1>
+                <h1 className={styles["title"]}>FAQ</h1>
                 <hr/>
                 { questions.map( ( question ) => {
                     return (
