@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+@value colors: "../../App.css";
+@value active-white, border1 from colors;
+
 .auth-container{
     position: relative;
 
@@ -8,7 +11,9 @@
     justify-content: center;
     align-items: center;
 
-    background: radial-Gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));
+    /*background: radial-Gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));*/
+    background: radial-Gradient(hsl(204, 87%, 40%), hsl(192, 84%, 50%));
+
     height: 100vh;
     width: 100vw;
 
@@ -22,19 +27,13 @@
     background-color: transparent;
 
     font-family: 'Poppins', sans-serif;
-    color:white;
+    color:active-white;
 
     padding: 4px 24px;
 
-    border: 2px solid white;
+    border: border1 active-white;
     border-radius: 5px;
 
     cursor: pointer;
 }
 
-.logout-btn:hover{
-
-    color: hsl(5, 0%, 80%);
-    border: 2px solid hsl(5, 0%, 80%);
-
-}

@@ -1,16 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { AuthorizationContext } from "../../context/AuthorizationContext";
 import { HomeNavigation } from "../../components";
 import { Route, Switch } from "react-router-dom";
 import { AboutUs, FAQ, Home, Login } from "../../pages";
+import Footer from "../../components/footer/Footer";
 
 function UnauthorizedSection() {
 
-    const {isAuthorized} = useContext(AuthorizationContext);
+    const {isAuthorized, toggleAuthorized} = useContext(AuthorizationContext);
+
+
     return (
         <div>
-            {!isAuthorized && <HomeNavigation/>}
+            {!isAuthorized && <HomeNavigation/> }
             <Switch>
                 <Route exact path="/">
                     <Home/>
@@ -25,6 +28,7 @@ function UnauthorizedSection() {
                     <Login/>
                 </Route>
             </Switch>
+            {!isAuthorized && <Footer/> }
         </div>
     );
 }

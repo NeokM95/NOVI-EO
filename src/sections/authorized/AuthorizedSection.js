@@ -12,11 +12,10 @@ function AuthorizedSection() {
 
     return (
         <div>
-            { isAuthorized &&
-            <section className={ styles["auth-container"] }>
+            <section className={ isAuthorized && styles[ "auth-container"] }>
                 <Switch>
                     <Route path="/student-dashboard">
-                        { isAuthorized && isStudent ? <StudentDashboard/> : <Redirect to="/login"/> }
+                        { isAuthorized  && isStudent? <StudentDashboard/> : <Redirect to="/login"/> }
                     </Route>
                     <Route path="/teacher-dashboard">
                         { isAuthorized && isTeacher ? <TeacherDashboard/> : <Redirect to="/login"/> }
@@ -27,7 +26,6 @@ function AuthorizedSection() {
                 </Switch>
                 { isAuthorized && <button className={ styles["logout-btn"] }onClick={ logout }>log uit</button> }
             </section>
-            }
         </div>
     );
 }

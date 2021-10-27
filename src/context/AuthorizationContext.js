@@ -74,7 +74,8 @@ function AuthorizationContextProvider({children}){
         setTeacher,
         isAdmin,
         setAdmin,
-        madeChoice
+        madeChoice,
+        toggleAuthorized
     }
 
     return(

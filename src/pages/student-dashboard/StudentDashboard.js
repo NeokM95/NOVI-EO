@@ -135,6 +135,7 @@ function StudentDashboard() {
         togglePlusMinusBtnTheme( "unSelected-btn" )
         toggleMultiplyBtnTheme( "unSelected-btn" )
         toggleDivideBtnTheme( "unSelected-btn" )
+        setReadyToStart(true)
     }
 
 
@@ -191,12 +192,6 @@ function StudentDashboard() {
 
                     </div>
 
-                    {/*<h3>Gekozen level: { level } </h3>*/ }
-                    {/*<div className={ styles["level-btn-container"] }>*/ }
-                    {/*    <button className={ styles["level-btn"] } onClick={ () => setLevel( 1 ) }>level 1</button>*/ }
-                    {/*    <button className={ styles["level-btn"] } onClick={ () => setLevel( 2 ) }>level 2</button>*/ }
-                    {/*    <button className={ styles["level-btn"] } onClick={ () => setLevel( 3 ) }>level 3</button>*/ }
-                    {/*</div>*/ }
                     <button className={ styles["play-btn"] }
                             disabled={readyToStart}
                             onClick={ () => {

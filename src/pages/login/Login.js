@@ -1,10 +1,18 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { AuthorizationContext } from "../../context/AuthorizationContext";
 
 function Login() {
 
-    const { login, setStudent, setTeacher, setAdmin, madeChoice } = useContext( AuthorizationContext )
+    const { login, setStudent, setTeacher, setAdmin, madeChoice, toggleAuthorized } = useContext( AuthorizationContext )
+
+    useEffect(() => {
+
+        toggleAuthorized(false)
+        console.log("Ik word aangeroepen")
+
+    }, [])
+
 
     return (
         <>

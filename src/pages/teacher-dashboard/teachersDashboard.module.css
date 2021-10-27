@@ -6,6 +6,10 @@ tr:nth-child(even) {
     background-color: #D6EEEE;
 }
 
+tr:nth-child(odd) {
+    color: white;
+}
+
 td {
     border-right: 2px solid black;
     border-bottom: 2px solid black;

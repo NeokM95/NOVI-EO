@@ -1,0 +1,81 @@
+@value colors: "../../App.css";
+
+@value active-white, poppins, main-blue from colors;
+
+.header-img {
+
+    background-image: url('../../assets/home-images/headerimg2.PNG');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    height: 60vh;
+
+    width: fit-content;
+
+    color: black;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+
+.header-txt {
+    width: 50%;
+    margin-left: 3vw;
+    font-family: poppins, 'sans-serif';
+    color: #FFF;
+
+    background-color: hsla(0, 0%, 0%, 0.5);
+    padding: 16px;
+
+    border-radius: 16px;
+}
+
+.header-txt h1 {
+
+    font-size: 48px;
+
+    margin-bottom: 24px;
+
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-info{
+    width: 1080px;
+
+    display: flex;
+
+    border-radius: 16px;
+
+    margin: 8px;
+}
+
+.main-pictures{
+    width: 680px;
+}
+
+.main-text-even{
+    font-family: Poppins, 'sans-serif';
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main-text-odd{
+    font-family: Poppins, 'sans-serif';
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin-left: 24px;
+}
+
