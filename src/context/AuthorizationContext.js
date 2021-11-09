@@ -10,20 +10,22 @@ function AuthorizationContextProvider({children}){
     const [isTeacher, toggleIsTeacher] = useState(false)
     const [isAdmin, toggleIsAdmin] = useState(false)
 
-    const [madeChoice, setMadeChoice] = useState(false)
-
     const history = useHistory()
 
-    function login(){
+    function login(userRole){
+
         toggleAuthorized(true)
 
-        if(isStudent){
+        if(userRole === "ROLE_STUDENT"){
+            setStudent()
             history.push("/student-dashboard")
         }
-        else if(isTeacher){
+        else if(userRole === "ROLE_TEACHER"){
+            setTeacher()
             history.push("/teacher-dashboard")
         }
-        else if(isAdmin){
+        else if(userRole === "ROLE_ADMIN"){
+            setAdmin()
             history.push("/admin-dashboard")
         }else{
             history.push("/")
@@ -34,8 +36,6 @@ function AuthorizationContextProvider({children}){
     function logout(){
         toggleAuthorized(false)
 
-        setMadeChoice(false)
-
         history.push("/login")
     }
 
@@ -43,24 +43,18 @@ function AuthorizationContextProvider({children}){
         toggleIsStudent(true )
         toggleIsTeacher(false)
         toggleIsAdmin(false)
-
-        setMadeChoice(true)
     }
 
     function setTeacher(){
         toggleIsStudent(false)
         toggleIsTeacher(true)
         toggleIsAdmin(false)
-
-        setMadeChoice(true)
     }
 
     function setAdmin(){
         toggleIsStudent(false)
         toggleIsTeacher(false)
         toggleIsAdmin(true)
-
-        setMadeChoice(true)
     }
 
 
@@ -69,13 +63,10 @@ function AuthorizationContextProvider({children}){
         login,
         logout,
         isStudent,
-        setStudent,
         isTeacher,
-        setTeacher,
         isAdmin,
-        setAdmin,
-        madeChoice,
-        toggleAuthorized
+        toggleAuthorized,
+        toggleIsAdmin
     }
 
     return(
