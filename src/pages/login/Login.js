@@ -39,9 +39,8 @@ function Login() {
 
     return (
         <div className={ styles["login-container"] }>
-            <h1>Login page</h1>
 
-            <form onSubmit={attemptLogin}>
+            <form className={ styles["login-form"] } onSubmit={attemptLogin}>
                 <label htmlFor="username">
                     username:
                     <input

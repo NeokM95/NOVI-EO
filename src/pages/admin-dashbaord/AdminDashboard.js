@@ -50,11 +50,13 @@ function AdminDashboard() {
                     }
                 } )
 
+            setMessage(`User '${username}' succesvol aangemaakt!`)
             clearForm()
 
         } catch ( e ) {
 
-            setMessage( e.response.data.message )
+            console.log(e.response.data)
+            setMessage(e.response.data.message)
 
         }
     }
@@ -75,11 +77,13 @@ function AdminDashboard() {
                     }
                 } )
 
+            setMessage(`User '${username}' succesvol aangemaakt!`)
             clearForm()
 
         } catch ( e ) {
 
-            setMessage( e.response.data.message )
+            console.log(e.response.data)
+            setMessage(e.response.data.message)
 
         }
     }
@@ -94,7 +98,6 @@ function AdminDashboard() {
     return (
 
         <>
-            <h1>Je bent op de admin page</h1>
 
             <form className={ Styles["admin-form"] } onSubmit={ createUser }>
                 <h3>Nieuw Account Aanmaken</h3>
