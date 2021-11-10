@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-@value colors: "../../App.css";
-@value active-white, border1 from colors;
+@value global-styles: "../../App.css";
+@value active-white, border1, main-font from global-styles;
 
 .auth-container{
     position: relative;
@@ -11,7 +11,6 @@
     justify-content: center;
     align-items: center;
 
-    /*background: radial-Gradient(hsl(214, 47%, 23%), hsl(237, 49%, 15%));*/
     background: radial-Gradient(hsl(204, 87%, 40%), hsl(192, 84%, 50%));
 
     height: 100vh;
@@ -26,7 +25,7 @@
 
     background-color: transparent;
 
-    font-family: 'Poppins', sans-serif;
+    font-family: main-font, sans-serif;
     color:active-white;
 
     padding: 4px 24px;

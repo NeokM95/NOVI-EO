@@ -1,0 +1,21 @@
+.admin-form{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    background-color: hsla(0, 100%, 100%, 50%);
+    border-radius: 5px;
+}
+
+.admin-form h3{
+    text-align: center;
+}
+
+.admin-form label{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.admin-form input{
+    margin-left: 5px;
+}

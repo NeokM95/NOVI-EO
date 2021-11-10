@@ -4,4 +4,4 @@
 @value active-white: hsl(0, 0%, 100%);
 @value main-blue: hsl(192, 84%, 50%);
 @value border1: 2px solid;
-@value poppins: 'Poppins';
+@value main-font: Poppins;

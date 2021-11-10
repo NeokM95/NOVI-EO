@@ -1,5 +1,7 @@
-import {createContext, useState} from "react";
+import { createContext, useState } from "react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
+import jwt_decode from "jwt-decode"
 
 export const AuthorizationContext = createContext({})
 
@@ -10,9 +12,18 @@ function AuthorizationContextProvider({children}){
     const [isTeacher, toggleIsTeacher] = useState(false)
     const [isAdmin, toggleIsAdmin] = useState(false)
 
+    const [JWT, setJWT] = useState('')
+
     const history = useHistory()
 
-    function login(userRole){
+    async function login(JWT){
+
+        setJWT(JWT)
+
+        let userRole = await getUserRole(JWT)
+
+        // Set JWT in localStorage not implemented jet:
+        // localStorage.setItem( 'token', JWT )
 
         toggleAuthorized(true)
 
@@ -31,6 +42,24 @@ function AuthorizationContextProvider({children}){
             history.push("/")
         }
 
+    }
+
+    async function getUserRole(JWT){
+
+        let decodedToken = jwt_decode(JWT)
+
+        try {
+            const result = await axios.get(`http://localhost:8088/user-role/${decodedToken.sub}`,{
+                headers: {
+                    'Authorization': `Bearer ${JWT}`
+                }
+            })
+
+            return result.data.authorities[0].authority
+
+        } catch(e){
+            console.log(e)
+        }
     }
 
     function logout(){
@@ -60,13 +89,13 @@ function AuthorizationContextProvider({children}){
 
     const contextData = {
         isAuthorized,
+        toggleAuthorized,
         login,
         logout,
         isStudent,
         isTeacher,
         isAdmin,
-        toggleAuthorized,
-        toggleIsAdmin
+        JWT
     }
 
     return(

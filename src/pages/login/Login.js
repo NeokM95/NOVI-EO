@@ -1,7 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import jwt_decode from "jwt-decode"
-
-
 import { AuthorizationContext } from "../../context/AuthorizationContext";
 
 import styles from './login.module.css'
@@ -13,9 +10,7 @@ function Login() {
     const { login, toggleAuthorized } = useContext( AuthorizationContext )
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
-    let JWT;
-    let decodedToken;
+    const [message, setMessage] = useState('')
 
     useEffect( () => {
 
@@ -33,37 +28,14 @@ function Login() {
                 password: password
             })
 
-
-            JWT = result.data.jwt
-            decodedToken = jwt_decode( JWT )
-
-            await getUserRole()
-
+            login(result.data.jwt)
 
         } catch (e) {
             console.log(e)
+            setMessage('Onjuiste login')
         }
 
-
     }
-
-    async function getUserRole(){
-        try {
-            const result = await axios.get(`http://localhost:8088/user-role/${decodedToken.sub}`,{
-                headers: {
-                    'Authorization': `Bearer ${JWT}`
-                }
-            })
-
-            let userRole = result.data.authorities[0].authority
-
-            login(userRole)
-
-        } catch(e){
-            console.log(e)
-        }
-    }
-
 
     return (
         <div className={ styles["login-container"] }>
@@ -88,6 +60,7 @@ function Login() {
                 </label>
                 <button type="submit">Login</button>
             </form>
+            {message.length > 0 && <p>{message}</p>}
 
         </div>
     );

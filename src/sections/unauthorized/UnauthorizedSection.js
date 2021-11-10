@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { AuthorizationContext } from "../../context/AuthorizationContext";
 import { HomeNavigation } from "../../components";
@@ -8,7 +8,7 @@ import Footer from "../../components/footer/Footer";
 
 function UnauthorizedSection() {
 
-    const {isAuthorized, toggleAuthorized} = useContext(AuthorizationContext);
+    const {isAuthorized} = useContext(AuthorizationContext);
 
 
     return (
