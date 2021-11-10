@@ -9,56 +9,36 @@ function AdminDashboard() {
     const [ email, setEmail ] = useState( '' )
     const [ username, setUsername ] = useState( '' )
     const [ password, setPassword ] = useState( '' )
+    const [ confirmedPassword, setConfirmedPassword ] = useState( '' )
     const [ userRole, setUserRole ] = useState( 'admin' )
 
-    const [errorMessage, setErrorMessage] = useState('')
+    const [ message, setMessage ] = useState( '' )
 
     const { JWT } = useContext( AuthorizationContext )
 
 
-    function createUser(e) {
+    function createUser( e ) {
+        setMessage('')
 
         e.preventDefault()
 
-        if(userRole === 'admin'){
-            createAdmin()
+        if (password !== confirmedPassword){
+            setMessage('Wachtwoorden komen niet overeen!')
         } else {
-            createTeacher()
-        }
-    }
-
-    async function createAdmin( ) {
-
-        setErrorMessage('')
-
-        try {
-
-            const result = await axios.post( `http://localhost:8088/api/v1/admin/create/admin`,
-                {
-                    email: email,
-                    username: username,
-                    password: password
-                },
-                {
-                    headers: {
-                        'Authorization': `Bearer ${ JWT }`
-                    }
-                } )
-            console.log( result.data )
-        } catch (e) {
-
-            for ( let i = 0; i < e.response.data.errors.length ; i++ ) {
-                console.log(e.response.data.errors[i].defaultMessage)
+            if ( userRole === 'admin' ) {
+                createAdmin()
+            } else {
+                createTeacher()
             }
-
         }
+
     }
 
-    async function createTeacher( ) {
+    async function createAdmin() {
 
         try {
 
-            const result = await axios.post( `http://localhost:8088/api/v1/admin/create/teacher`,
+            await axios.post( `http://localhost:8088/api/v1/admin/create/admin`,
                 {
                     email: email,
                     username: username,
@@ -69,12 +49,47 @@ function AdminDashboard() {
                         'Authorization': `Bearer ${ JWT }`
                     }
                 } )
-            console.log( result.data )
+
+            clearForm()
+
         } catch ( e ) {
-            console.log( e )
+
+            setMessage( e.response.data.message )
+
         }
     }
 
+    async function createTeacher() {
+
+        try {
+
+            await axios.post( `http://localhost:8088/api/v1/admin/create/teacher`,
+                {
+                    email: email,
+                    username: username,
+                    password: password
+                },
+                {
+                    headers: {
+                        'Authorization': `Bearer ${ JWT }`
+                    }
+                } )
+
+            clearForm()
+
+        } catch ( e ) {
+
+            setMessage( e.response.data.message )
+
+        }
+    }
+
+    function clearForm() {
+        setEmail( '' )
+        setUsername( '' )
+        setPassword( '' )
+        setConfirmedPassword('')
+    }
 
     return (
 
@@ -88,6 +103,7 @@ function AdminDashboard() {
                     <input
                         type="email"
                         id="email"
+                        value={ email }
                         onChange={ ( e ) => setEmail( e.target.value ) }
                         required
                     />
@@ -99,6 +115,7 @@ function AdminDashboard() {
                         id="username"
                         minLength="4"
                         maxLength="20"
+                        value={ username }
                         onChange={ ( e ) => setUsername( e.target.value ) }
                         required
                     />
@@ -110,22 +127,32 @@ function AdminDashboard() {
                         id="password"
                         minLength="8"
                         maxLength="20"
+                        value={ password }
                         onChange={ ( e ) => setPassword( e.target.value ) }
                         required
                     />
                 </label>
+                <label htmlFor="confirmPassword">
+                    Bevestig Password:
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        minLength="8"
+                        maxLength="20"
+                        value={ confirmedPassword }
+                        onChange={ ( e ) => setConfirmedPassword( e.target.value ) }
+                        required
+                    />
+                </label>
                 <label htmlFor="user-role">Kies gebruikers rol:</label>
-                <select name="user-role" id="user-role" onChange={(e) => setUserRole(e.target.value)}>
+                <select name="user-role" id="user-role" onChange={ ( e ) => setUserRole( e.target.value ) }>
                     <option value="admin">Admin</option>
                     <option value="teacher">Leraar</option>
                 </select>
-
                 <button type="submit">Maak Account</button>
-
-                {errorMessage.length > 0 && <p>{errorMessage}</p>}
-
             </form>
 
+            { message.length > 0 && <p>{ message }</p> }
         </>
 
     );
