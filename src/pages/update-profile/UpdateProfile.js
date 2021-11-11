@@ -1,7 +1,9 @@
 import styles from "./updateProfile.module.css"
 import LevelBtn from "../../components/level-button/LevelBtn";
 
+
 function UpdateProfile( ) {
+
     return (
         <>
             <div className={styles["update-profile-container"]}>
