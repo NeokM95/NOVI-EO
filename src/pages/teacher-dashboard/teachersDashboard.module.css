@@ -1,5 +1,18 @@
-.db-container{
+@value colors: "../../App.css";
+@value disabled-gray, active-white, border1 from colors;
 
+.teacher-db-header{
+    color: active-white;
+    margin-bottom: 24px;
+}
+
+.teacher-db-container{
+    display: flex;
+    color: active-white;
+}
+
+.teacher-db-container div{
+    margin: 5px;
 }
 
 tr:nth-child(even) {
@@ -16,4 +29,27 @@ td {
 th {
     border-right: 2px solid black;
     border-bottom: 2px solid black;
+}
+
+.go-back-arrow{
+
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+
+    color: active-white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+}
+
+.go-back-arrow span{
+    font-size: 24px;
+    margin-left: 4px;
 }

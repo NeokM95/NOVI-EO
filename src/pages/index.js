@@ -5,6 +5,7 @@ import Home from './home/Home'
 import Login from './login/Login'
 import StudentDashboard from './student-dashboard/StudentDashboard'
 import TeacherDashboard from './teacher-dashboard/TeacherDashboard'
+import ExercisePage from "./exercise-page/ExercisePage";
 
 
-export { AboutUs, AdminDashboard,FAQ, Home, Login, StudentDashboard, TeacherDashboard }
+export { AboutUs, AdminDashboard,FAQ, Home, Login, StudentDashboard, TeacherDashboard, ExercisePage }

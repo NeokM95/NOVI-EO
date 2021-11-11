@@ -14,16 +14,18 @@ function AdminDashboard() {
 
     const [ message, setMessage ] = useState( '' )
 
-    const { JWT } = useContext( AuthorizationContext )
+    const [ madeChoice, setMadeChoice ] = useState( false )
+
+    const { JWT, activeUsername } = useContext( AuthorizationContext )
 
 
     function createUser( e ) {
-        setMessage('')
+        setMessage( '' )
 
         e.preventDefault()
 
-        if (password !== confirmedPassword){
-            setMessage('Wachtwoorden komen niet overeen!')
+        if ( password !== confirmedPassword ) {
+            setMessage( 'Wachtwoorden komen niet overeen!' )
         } else {
             if ( userRole === 'admin' ) {
                 createAdmin()
@@ -50,13 +52,13 @@ function AdminDashboard() {
                     }
                 } )
 
-            setMessage(`User '${username}' succesvol aangemaakt!`)
+            setMessage( `User '${ username }' succesvol aangemaakt!` )
             clearForm()
 
         } catch ( e ) {
 
-            console.log(e.response.data)
-            setMessage(e.response.data.message)
+            console.log( e.response.data )
+            setMessage( e.response.data.message )
 
         }
     }
@@ -77,13 +79,13 @@ function AdminDashboard() {
                     }
                 } )
 
-            setMessage(`User '${username}' succesvol aangemaakt!`)
+            setMessage( `User '${ username }' succesvol aangemaakt!` )
             clearForm()
 
         } catch ( e ) {
 
-            console.log(e.response.data)
-            setMessage(e.response.data.message)
+            console.log( e.response.data )
+            setMessage( e.response.data.message )
 
         }
     }
@@ -92,72 +94,116 @@ function AdminDashboard() {
         setEmail( '' )
         setUsername( '' )
         setPassword( '' )
-        setConfirmedPassword('')
+        setConfirmedPassword( '' )
     }
+
 
     return (
 
         <>
 
-            <form className={ Styles["admin-form"] } onSubmit={ createUser }>
-                <h3>Nieuw Account Aanmaken</h3>
-                <label htmlFor="email">
-                    Email:
-                    <input
-                        type="email"
-                        id="email"
-                        value={ email }
-                        onChange={ ( e ) => setEmail( e.target.value ) }
-                        required
-                    />
-                </label>
-                <label htmlFor="username">
-                    Username:
-                    <input
-                        type="text"
-                        id="username"
-                        minLength="4"
-                        maxLength="20"
-                        value={ username }
-                        onChange={ ( e ) => setUsername( e.target.value ) }
-                        required
-                    />
-                </label>
-                <label htmlFor="password">
-                    Password:
-                    <input
-                        type="password"
-                        id="password"
-                        minLength="8"
-                        maxLength="20"
-                        value={ password }
-                        onChange={ ( e ) => setPassword( e.target.value ) }
-                        required
-                    />
-                </label>
-                <label htmlFor="confirmPassword">
-                    Bevestig Password:
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        minLength="8"
-                        maxLength="20"
-                        value={ confirmedPassword }
-                        onChange={ ( e ) => setConfirmedPassword( e.target.value ) }
-                        required
-                    />
-                </label>
-                <label htmlFor="user-role">Kies gebruikers rol:</label>
-                <select name="user-role" id="user-role" onChange={ ( e ) => setUserRole( e.target.value ) }>
-                    <option value="admin">Admin</option>
-                    <option value="teacher">Leraar</option>
-                </select>
-                <button type="submit">Maak Account</button>
-            </form>
+            { !madeChoice ?
+                <>
 
-            { message.length > 0 && <p>{ message }</p> }
+                    <h1 className={Styles["admin-db-header"]}>Welkom {activeUsername}, wat wil je doen?</h1>
+
+                    <div className={Styles["first-row"]}>
+                        <div className="db-outer-btn" onClick={ () => {
+                            setMadeChoice( true )
+                        } }>
+                            <div className="db-option-btn">
+                                <h3>Update Account</h3>
+                            </div>
+                        </div>
+                        <div className="db-outer-btn" onClick={ () => {
+                            setMadeChoice( true )
+                        } }>
+                            <div className="db-option-btn">
+                                <h3>Maak Nieuwe Gebruiker</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={Styles["second-row"]}>
+                        <div className="db-outer-btn" onClick={ () => {
+                            setMadeChoice( true )
+                        } }>
+                            <div className="db-option-btn">
+                                <h3>Gebruikers Overzicht</h3>
+                            </div>
+                        </div>
+                        <div className="db-outer-btn" onClick={ () => {
+                            setMadeChoice( true )
+                        } }>
+                            <div className="db-option-btn">
+                                <h3>Zelf Oefenen</h3>
+                            </div>
+                        </div>
+                    </div>
+                </>
+
+                :
+                <h1>iets anders</h1>
+
+            }
+            {/*    <form className={ Styles["admin-form"] } onSubmit={ createUser }>*/ }
+            {/*        <h3>Nieuw Account Aanmaken</h3>*/ }
+            {/*        <label htmlFor="email">*/ }
+            {/*            Email:*/ }
+            {/*            <input*/ }
+            {/*                type="email"*/ }
+            {/*                id="email"*/ }
+            {/*                value={ email }*/ }
+            {/*                onChange={ ( e ) => setEmail( e.target.value ) }*/ }
+            {/*                required*/ }
+            {/*            />*/ }
+            {/*        </label>*/ }
+            {/*        <label htmlFor="username">*/ }
+            {/*            Username:*/ }
+            {/*            <input*/ }
+            {/*                type="text"*/ }
+            {/*                id="username"*/ }
+            {/*                minLength="4"*/ }
+            {/*                maxLength="20"*/ }
+            {/*                value={ username }*/ }
+            {/*                onChange={ ( e ) => setUsername( e.target.value ) }*/ }
+            {/*                required*/ }
+            {/*            />*/ }
+            {/*        </label>*/ }
+            {/*        <label htmlFor="password">*/ }
+            {/*            Password:*/ }
+            {/*            <input*/ }
+            {/*                type="password"*/ }
+            {/*                id="password"*/ }
+            {/*                minLength="8"*/ }
+            {/*                maxLength="20"*/ }
+            {/*                value={ password }*/ }
+            {/*                onChange={ ( e ) => setPassword( e.target.value ) }*/ }
+            {/*                required*/ }
+            {/*            />*/ }
+            {/*        </label>*/ }
+            {/*        <label htmlFor="confirmPassword">*/ }
+            {/*            Bevestig Password:*/ }
+            {/*            <input*/ }
+            {/*                type="password"*/ }
+            {/*                id="confirmPassword"*/ }
+            {/*                minLength="8"*/ }
+            {/*                maxLength="20"*/ }
+            {/*                value={ confirmedPassword }*/ }
+            {/*                onChange={ ( e ) => setConfirmedPassword( e.target.value ) }*/ }
+            {/*                required*/ }
+            {/*            />*/ }
+            {/*        </label>*/ }
+            {/*        <label htmlFor="user-role">Kies gebruikers rol:</label>*/ }
+            {/*        <select name="user-role" id="user-role" onChange={ ( e ) => setUserRole( e.target.value ) }>*/ }
+            {/*            <option value="admin">Admin</option>*/ }
+            {/*            <option value="teacher">Leraar</option>*/ }
+            {/*        </select>*/ }
+            {/*        <button type="submit">Maak Account</button>*/ }
+            {/*    </form>*/ }
+
+            {/*    { message.length > 0 && <p>{ message }</p> }*/ }
+            {/*</>*/ }
         </>
-
     );
 }
 

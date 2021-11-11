@@ -1,3 +1,8 @@
+.admin-db-header{
+    color: white;
+    margin-bottom: 24px;
+}
+
 .admin-form{
     display: flex;
     flex-direction: column;
@@ -19,4 +24,24 @@
 
 .admin-form input{
     margin-left: 5px;
+}
+
+.first-row{
+    display: flex;
+}
+
+.second-row{
+    display: flex;
+}
+
+.first-row h3{
+    text-align: center;
+}
+
+.first-row div{
+    margin: 5px;
+}
+
+.second-row div{
+    margin: 5px;
 }

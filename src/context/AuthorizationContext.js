@@ -12,15 +12,18 @@ function AuthorizationContextProvider({children}){
     const [isTeacher, toggleIsTeacher] = useState(false)
     const [isAdmin, toggleIsAdmin] = useState(false)
 
+    const [activeUsername, setActiveUsername] = useState('')
+
+    // Waar was deze ook alweer nodig?
     const [JWT, setJWT] = useState('')
 
     const history = useHistory()
 
-    async function login(JWT){
+    async function login(JWTInput){
 
-        setJWT(JWT)
+        setJWT(JWTInput)
 
-        let userRole = await getUserRole(JWT)
+        let userRole = await getUserRole(JWTInput)
 
         // Set JWT in localStorage not implemented jet:
         // localStorage.setItem( 'token', JWT )
@@ -44,16 +47,21 @@ function AuthorizationContextProvider({children}){
 
     }
 
-    async function getUserRole(JWT){
+    async function getUserRole(JWTInput){
 
-        let decodedToken = jwt_decode(JWT)
+        let decodedToken = jwt_decode(JWTInput)
+
+            setActiveUsername(decodedToken.sub)
 
         try {
+
             const result = await axios.get(`http://localhost:8088/user-role/${decodedToken.sub}`,{
                 headers: {
                     'Authorization': `Bearer ${JWT}`
                 }
             })
+
+            console.log("Ik ben ook hier")
 
             return result.data.authorities[0].authority
 
@@ -95,7 +103,8 @@ function AuthorizationContextProvider({children}){
         isStudent,
         isTeacher,
         isAdmin,
-        JWT
+        JWT,
+        activeUsername
     }
 
     return(

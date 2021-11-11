@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
+@value colors: "./App.css";
+@value disabled-gray, active-white, border1 from colors;
+
 *{
     margin: 0;
     box-sizing: border-box;
@@ -17,3 +20,41 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.db-option-btn{
+    height: 200px;
+    width: 200px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background-color: hsla(0, 100%,100%, 50%);
+}
+
+.db-outer-btn{
+    height: 220px;
+    width: 220px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: transparent;
+
+    border-radius: 50%;
+
+    border: 4px solid hsla(0, 100%,100%, 50%);
+}
+
+.db-outer-btn:hover {
+
+    cursor: pointer;
+
+    background-color: hsla(0, 100%,100%, 25%);
+}
+
