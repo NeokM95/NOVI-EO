@@ -2,16 +2,16 @@ import styles from "./updateProfile.module.css"
 import LevelBtn from "../../components/level-button/LevelBtn";
 
 
-function UpdateProfile( ) {
+function UpdateProfile( { currentProfile } ) {
 
     return (
         <>
-            <div className={styles["update-profile-container"]}>
+            <div className={ styles["update-profile-container"] }>
                 <label htmlFor="">
                     Gebruikersnaam:
                     <input
                         type="text"
-                        value="Koen"
+                        value={ currentProfile.username }
                         disabled
                     />
                 </label>
@@ -19,18 +19,18 @@ function UpdateProfile( ) {
                     Email:
                     <input
                         type="text"
-                        value="koenm@ChiefCount.nl"
+                        value={ currentProfile.email }
                         disabled
                     />
                 </label>
                 Niveaus:
-                <div className={styles["level-container"]}>
-                    <LevelBtn title="Plus Min" level="2"/>
-                    <LevelBtn title="Keer Sommen" level="2"/>
-                    <LevelBtn title="Deel Sommen" level="3"/>
+                <div className={ styles["level-container"] }>
+                    <LevelBtn title="Plus Min" level={ currentProfile.plusMinus }/>
+                    <LevelBtn title="Keer Sommen" level={ currentProfile.multiply }/>
+                    <LevelBtn title="Deel Sommen" level={ currentProfile.divide }/>
                 </div>
 
-                <div className={styles["button-container"]}>
+                <div className={ styles["button-container"] }>
                     <button>
                         Wijzig Wachtwoord
                     </button>

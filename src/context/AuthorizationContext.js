@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode"
@@ -12,9 +12,6 @@ function AuthorizationContextProvider({children}){
     const [isTeacher, toggleIsTeacher] = useState(false)
     const [isAdmin, toggleIsAdmin] = useState(false)
 
-    const [activeUsername, setActiveUsername] = useState('')
-
-    // Waar was deze ook alweer nodig?
     const [JWT, setJWT] = useState('')
 
     const history = useHistory()
@@ -51,8 +48,6 @@ function AuthorizationContextProvider({children}){
 
         let decodedToken = jwt_decode(JWTInput)
 
-            setActiveUsername(decodedToken.sub)
-
         try {
 
             const result = await axios.get(`http://localhost:8088/user-role/${decodedToken.sub}`,{
@@ -60,8 +55,6 @@ function AuthorizationContextProvider({children}){
                     'Authorization': `Bearer ${JWT}`
                 }
             })
-
-            console.log("Ik ben ook hier")
 
             return result.data.authorities[0].authority
 
@@ -103,8 +96,7 @@ function AuthorizationContextProvider({children}){
         isStudent,
         isTeacher,
         isAdmin,
-        JWT,
-        activeUsername
+        JWT
     }
 
     return(

@@ -6,7 +6,7 @@ import DashboardBtn from "../../components/dashboard-button/DashboardBtn";
 import DashboardHeader from "../../components/dashboard-header/DashboardHeader";
 import BackToDashboardArrow from "../../components/back-to-db-arrow/BackToDashboardArrow";
 
-import { AuthorizationContext } from "../../context/AuthorizationContext";
+import { ActiveUserContext } from "../../context/ActiveUserContext";
 
 import styles from "./studentDashboard.module.css"
 import UpdateProfile from "../update-profile/UpdateProfile";
@@ -16,7 +16,7 @@ function StudentDashboard() {
     const [ madeChoice, setMadeChoice ] = useState( false )
     const [ playtime, setPlaytime ] = useState( false )
 
-    const { activeUsername } = useContext( AuthorizationContext )
+    const { activeUserDetails } = useContext( ActiveUserContext )
 
     function setPractice() {
         setPlaytime( true )
@@ -37,7 +37,7 @@ function StudentDashboard() {
 
             { !madeChoice ?
                 <>
-                    <DashboardHeader name={ activeUsername }/>
+                    <DashboardHeader name={ activeUserDetails.username }/>
                     <div className={ styles["student-db-btn-container"] }>
                         <DashboardBtn btnTitle="Update Account" onClick={ setUpdateAccount }/>
                         <DashboardBtn btnTitle="Oefenen" onClick={ setPractice }/>
@@ -48,7 +48,7 @@ function StudentDashboard() {
                     { playtime ?
                         <ExercisePage/>
                         :
-                        <UpdateProfile/>
+                        <UpdateProfile currentProfile={activeUserDetails}/>
                     }
                     <BackToDashboardArrow onClick={ reset }/>
                 </>

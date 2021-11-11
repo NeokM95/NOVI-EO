@@ -2,12 +2,14 @@ import styles from "./adminDashboard.module.css"
 import { useContext, useState } from "react";
 import axios from "axios";
 
-import { AuthorizationContext } from "../../context/AuthorizationContext";
 import DashboardBtn from "../../components/dashboard-button/DashboardBtn";
 import DashboardHeader from "../../components/dashboard-header/DashboardHeader";
 import BackToDashboardArrow from "../../components/back-to-db-arrow/BackToDashboardArrow";
 import ExercisePage from "../exercise-page/ExercisePage";
 import UpdateProfile from "../update-profile/UpdateProfile";
+
+import { AuthorizationContext } from "../../context/AuthorizationContext";
+import { ActiveUserContext } from "../../context/ActiveUserContext";
 
 function AdminDashboard() {
 
@@ -104,7 +106,8 @@ function AdminDashboard() {
     const [ playtime, setPlaytime ] = useState( false )
     const [ userOverview, setUserOverview ] = useState( false )
 
-    const { JWT, activeUsername } = useContext( AuthorizationContext )
+    const { JWT } = useContext( AuthorizationContext )
+    const { activeUserDetails } = useContext( ActiveUserContext )
 
     function setPractice(){
         setMadeChoice(true)
@@ -133,7 +136,7 @@ function AdminDashboard() {
 
             { !madeChoice ?
                 <>
-                    <DashboardHeader name={ activeUsername }/>
+                    <DashboardHeader name={ activeUserDetails.username }/>
                     <div className={ styles["admin-db-btn-container"] }>
                         <DashboardBtn btnTitle="Update Account" onClick={setUpdateAccount}/>
                         <DashboardBtn btnTitle="Gebruikers Overzicht" onClick={setUserOverviewPage}/>
@@ -149,7 +152,7 @@ function AdminDashboard() {
                         : userOverview ?
                             <h1>Hier komt nog een UserOverview component</h1>
                             :
-                            <UpdateProfile/>
+                            <UpdateProfile currentProfile={activeUserDetails}/>
                     }
                     <BackToDashboardArrow onClick={reset}/>
                 </>
