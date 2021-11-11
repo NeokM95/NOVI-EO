@@ -1,8 +1,7 @@
 @value colors: "../../App.css";
 @value active-white from colors;
 
-.student-db-btn-container{
+.db-header{
     color: active-white;
-    display: flex;
+    margin-bottom: 24px;
 }
-

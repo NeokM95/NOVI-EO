@@ -1,8 +1,13 @@
-import Styles from "./adminDashboard.module.css"
+import styles from "./adminDashboard.module.css"
 import { useContext, useState } from "react";
 import axios from "axios";
 
 import { AuthorizationContext } from "../../context/AuthorizationContext";
+import DashboardBtn from "../../components/dashboard-button/DashboardBtn";
+import DashboardHeader from "../../components/dashboard-header/DashboardHeader";
+import BackToDashboardArrow from "../../components/back-to-db-arrow/BackToDashboardArrow";
+import ExercisePage from "../exercise-page/ExercisePage";
+import UpdateProfile from "../update-profile/UpdateProfile";
 
 function AdminDashboard() {
 
@@ -13,10 +18,6 @@ function AdminDashboard() {
     const [ userRole, setUserRole ] = useState( 'admin' )
 
     const [ message, setMessage ] = useState( '' )
-
-    const [ madeChoice, setMadeChoice ] = useState( false )
-
-    const { JWT, activeUsername } = useContext( AuthorizationContext )
 
 
     function createUser( e ) {
@@ -97,6 +98,34 @@ function AdminDashboard() {
         setConfirmedPassword( '' )
     }
 
+    //-------------------------------------------------------------------------
+
+    const [ madeChoice, setMadeChoice ] = useState( false )
+    const [ playtime, setPlaytime ] = useState( false )
+    const [ userOverview, setUserOverview ] = useState( false )
+
+    const { JWT, activeUsername } = useContext( AuthorizationContext )
+
+    function setPractice(){
+        setMadeChoice(true)
+        setPlaytime(true)
+    }
+
+    function setUserOverviewPage(){
+        setMadeChoice(true)
+        setUserOverview(true)
+    }
+
+    function setUpdateAccount() {
+        setMadeChoice( true )
+    }
+
+    function reset() {
+        setMadeChoice( false )
+        setPlaytime( false )
+        setUserOverview( false )
+    }
+
 
     return (
 
@@ -104,45 +133,26 @@ function AdminDashboard() {
 
             { !madeChoice ?
                 <>
-
-                    <h1 className={Styles["admin-db-header"]}>Welkom {activeUsername}, wat wil je doen?</h1>
-
-                    <div className={Styles["first-row"]}>
-                        <div className="db-outer-btn" onClick={ () => {
-                            setMadeChoice( true )
-                        } }>
-                            <div className="db-option-btn">
-                                <h3>Update Account</h3>
-                            </div>
-                        </div>
-                        <div className="db-outer-btn" onClick={ () => {
-                            setMadeChoice( true )
-                        } }>
-                            <div className="db-option-btn">
-                                <h3>Maak Nieuwe Gebruiker</h3>
-                            </div>
-                        </div>
+                    <DashboardHeader name={ activeUsername }/>
+                    <div className={ styles["admin-db-btn-container"] }>
+                        <DashboardBtn btnTitle="Update Account" onClick={setUpdateAccount}/>
+                        <DashboardBtn btnTitle="Gebruikers Overzicht" onClick={setUserOverviewPage}/>
+                        <DashboardBtn btnTitle="Zelf Oefenen" onClick={setPractice}/>
                     </div>
-                    <div className={Styles["second-row"]}>
-                        <div className="db-outer-btn" onClick={ () => {
-                            setMadeChoice( true )
-                        } }>
-                            <div className="db-option-btn">
-                                <h3>Gebruikers Overzicht</h3>
-                            </div>
-                        </div>
-                        <div className="db-outer-btn" onClick={ () => {
-                            setMadeChoice( true )
-                        } }>
-                            <div className="db-option-btn">
-                                <h3>Zelf Oefenen</h3>
-                            </div>
-                        </div>
-                    </div>
+
                 </>
 
                 :
-                <h1>iets anders</h1>
+                <>
+                    { playtime ?
+                        <ExercisePage/>
+                        : userOverview ?
+                            <h1>Hier komt nog een UserOverview component</h1>
+                            :
+                            <UpdateProfile/>
+                    }
+                    <BackToDashboardArrow onClick={reset}/>
+                </>
 
             }
             {/*    <form className={ Styles["admin-form"] } onSubmit={ createUser }>*/ }

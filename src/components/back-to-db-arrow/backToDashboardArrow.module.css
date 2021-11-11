@@ -1,28 +1,6 @@
 @value colors: "../../App.css";
 @value active-white from colors;
 
-.teacher-db-btn-container{
-    display: flex;
-    color: active-white;
-}
-
-
-tr:nth-child(even) {
-    background-color: #D6EEEE;
-}
-
-td {
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
-
-    padding-left: 10px;
-}
-
-th {
-    border-right: 2px solid black;
-    border-bottom: 2px solid black;
-}
-
 .go-back-arrow{
 
     position: absolute;

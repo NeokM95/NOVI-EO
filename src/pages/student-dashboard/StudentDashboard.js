@@ -1,8 +1,15 @@
-import styles from "./studentDashboard.module.css"
 import { useContext, useState } from "react";
 
-import { AuthorizationContext } from "../../context/AuthorizationContext";
 import { ExercisePage } from "../index";
+
+import DashboardBtn from "../../components/dashboard-button/DashboardBtn";
+import DashboardHeader from "../../components/dashboard-header/DashboardHeader";
+import BackToDashboardArrow from "../../components/back-to-db-arrow/BackToDashboardArrow";
+
+import { AuthorizationContext } from "../../context/AuthorizationContext";
+
+import styles from "./studentDashboard.module.css"
+import UpdateProfile from "../update-profile/UpdateProfile";
 
 function StudentDashboard() {
 
@@ -10,6 +17,15 @@ function StudentDashboard() {
     const [ playtime, setPlaytime ] = useState( false )
 
     const { activeUsername } = useContext( AuthorizationContext )
+
+    function setPractice() {
+        setPlaytime( true )
+        setMadeChoice( true )
+    }
+
+    function setUpdateAccount() {
+        setMadeChoice( true )
+    }
 
     function reset() {
         setMadeChoice( false )
@@ -21,40 +37,20 @@ function StudentDashboard() {
 
             { !madeChoice ?
                 <>
-                    <h1 className={ styles["student-db-header"] }>Hallo { activeUsername }, wat wil je doen?</h1>
-                    <div className={ styles["student-db-container"] }>
-                        <div className="db-outer-btn" onClick={ () => {
-                            setMadeChoice( true )
-                        } }>
-                            <div className="db-option-btn">
-                                <h3>Update Account</h3>
-                            </div>
-                        </div>
-                        <div className="db-outer-btn" onClick={ () => {
-                            setMadeChoice( true )
-                            setPlaytime( true )
-                        } }>
-                            <div className="db-option-btn">
-                                <h3>Oefenen</h3>
-                            </div>
-                        </div>
+                    <DashboardHeader name={ activeUsername }/>
+                    <div className={ styles["student-db-btn-container"] }>
+                        <DashboardBtn btnTitle="Update Account" onClick={ setUpdateAccount }/>
+                        <DashboardBtn btnTitle="Oefenen" onClick={ setPractice }/>
                     </div>
                 </>
                 :
                 <>
                     { playtime ?
-                        <>
-                            <ExercisePage/>
-                        </>
+                        <ExercisePage/>
                         :
-
-                        <>
-                            <h1>update profiel</h1>
-                        </>
+                        <UpdateProfile/>
                     }
-                    <div className={ styles["go-back-arrow"] } onClick={ reset }>Ga terug
-                        <span>&#8678;</span>
-                    </div>
+                    <BackToDashboardArrow onClick={ reset }/>
                 </>
             }
         </>

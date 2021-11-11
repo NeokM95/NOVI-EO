@@ -1,6 +1,9 @@
-.admin-db-header{
-    color: white;
-    margin-bottom: 24px;
+@value colors: "../../App.css";
+@value active-white from colors;
+
+.admin-db-btn-container{
+    display: flex;
+    color: active-white;
 }
 
 .admin-form{

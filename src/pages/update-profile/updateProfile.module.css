@@ -1,0 +1,31 @@
+.update-profile-container{
+    display: flex;
+    flex-direction: column;
+
+    color: hsl(0, 100%, 100%);
+
+    padding: 16px;
+    background-color: hsla(0,100%,100%, 30%);
+    border-radius: 8px;
+}
+
+.update-profile-container label{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.update-profile-container input{
+    margin-left: 8px;
+}
+
+.level-container{
+    display: flex;
+}
+
+.button-container{
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 8px;
+}

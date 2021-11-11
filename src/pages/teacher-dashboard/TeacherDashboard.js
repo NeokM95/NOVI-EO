@@ -7,19 +7,37 @@ import styles from './teachersDashboard.module.css'
 import { AuthorizationContext } from "../../context/AuthorizationContext";
 import { ExercisePage } from "../index";
 import { useContext, useState } from "react";
+import DashboardBtn from "../../components/dashboard-button/DashboardBtn";
+import DashboardHeader from "../../components/dashboard-header/DashboardHeader";
+import BackToDashboardArrow from "../../components/back-to-db-arrow/BackToDashboardArrow";
+import UpdateProfile from "../update-profile/UpdateProfile";
 
 function TeacherDashboard() {
 
     const [ madeChoice, setMadeChoice ] = useState( false )
     const [ playtime, setPlaytime ] = useState( false )
-    const [ updateStudent, setUpdateStudents ] = useState( false )
+    const [ studentOverview, setStudentOverview ] = useState( false )
 
     const { activeUsername } = useContext( AuthorizationContext )
 
+    function setPractice(){
+        setMadeChoice(true)
+        setPlaytime(true)
+    }
+
+    function setStudentOverviewPage(){
+        setMadeChoice(true)
+        setStudentOverview(true)
+    }
+
+    function setUpdateAccount() {
+        setMadeChoice( true )
+    }
+
     function reset() {
         setMadeChoice( false )
-        setPlaytime(false)
-        setUpdateStudents(false)
+        setPlaytime( false )
+        setStudentOverview( false )
     }
 
     return (
@@ -27,53 +45,27 @@ function TeacherDashboard() {
         <>
             { !madeChoice ?
                 <>
-                    <h1 className={ styles["teacher-db-header"] }>Hallo { activeUsername }, wat wil je doen?</h1>
-                    <div className={ styles["teacher-db-container"] }>
-                        <div className="db-outer-btn" onClick={ () => {
-                            setMadeChoice( true )
-                        } }>
-                            <div className="db-option-btn">
-                                <h3>Update Account</h3>
-                            </div>
-                        </div>
-                        <div className="db-outer-btn" onClick={ () => {
-                            setMadeChoice( true )
-                            setUpdateStudents(true)
-                        } }>
-                            <div className="db-option-btn">
-                                <h3>Leerlingen Tabel</h3>
-                            </div>
-                        </div>
-                        <div className="db-outer-btn" onClick={ () => {
-                            setMadeChoice( true )
-                            setPlaytime(true)
-                        } }>
-                            <div className="db-option-btn">
-                                <h3>Zelf Oefenen</h3>
-                            </div>
-                        </div>
-
+                    <DashboardHeader name={activeUsername}/>
+                    <div className={ styles["teacher-db-btn-container"] }>
+                        <DashboardBtn btnTitle="Update Account" onClick={setUpdateAccount}/>
+                        <DashboardBtn btnTitle="Leerling Overzicht" onClick={setStudentOverviewPage}/>
+                        <DashboardBtn btnTitle="Zelf Oefenen" onClick={setPractice}/>
                     </div>
                 </>
                 :
                 <>
-                    {
-                        playtime ?
+                    { playtime ?
                             <>
                                 <ExercisePage/>
                             </>
-                            : updateStudent ?
+                            : studentOverview ?
                                 <>
                                     <h1>Update Students (tabel component)</h1>
                                 </>
                                 :
-                                <h1>
-                                    Update account
-                                </h1>
+                                <UpdateProfile/>
                     }
-                    <div className={ styles["go-back-arrow"] } onClick={ reset }>Ga terug
-                        <span>&#8678;</span>
-                    </div>
+                    <BackToDashboardArrow onClick={reset}/>
                 </>
             }
 

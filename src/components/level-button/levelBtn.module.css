@@ -1,0 +1,19 @@
+.level-btn{
+    height: 100px;
+    width: 100px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background-color: hsla(0, 100%, 100%, 30%);
+
+    margin: 0 5px;
+}
+
+.level-btn h6{
+    font-size: 12px;
+}

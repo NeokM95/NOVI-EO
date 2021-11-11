@@ -21,40 +21,4 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-.db-option-btn{
-    height: 200px;
-    width: 200px;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 50%;
-
-    background-color: hsla(0, 100%,100%, 50%);
-}
-
-.db-outer-btn{
-    height: 220px;
-    width: 220px;
-
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    background-color: transparent;
-
-    border-radius: 50%;
-
-    border: 4px solid hsla(0, 100%,100%, 50%);
-}
-
-.db-outer-btn:hover {
-
-    cursor: pointer;
-
-    background-color: hsla(0, 100%,100%, 25%);
-}
 
