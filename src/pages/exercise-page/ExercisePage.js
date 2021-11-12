@@ -61,7 +61,6 @@ function ExercisePage() {
 
     },[])
 
-
     function addExercise( ex ) {
         setExercises( [ ...exercises, ex ] )
         setReadyToStart( true )
@@ -192,12 +191,15 @@ function ExercisePage() {
         setExercises( [] )
     }
 
+    const lowercaseName = activeUserDetails.username
+    const uppercasedName = lowercaseName.charAt(0).toUpperCase() + lowercaseName.slice(1)
+
     return (
         <div className={ styles["student-db-container"] }>
             { !readyToPlay ?
                 <>
 
-                    <h1>{activeUserDetails.username}Wat wil je oefenen?</h1>
+                    <h1>{uppercasedName}, wat wil je oefenen?</h1>
 
                     <div className={ styles["exercise-container"] }>
                         <ExerciseBtn style={ plusMinusBtn ? "selected-btn" : "unSelected-btn" }

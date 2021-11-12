@@ -2,11 +2,12 @@ import styles from "./adminDashboard.module.css"
 import { useContext, useState } from "react";
 import axios from "axios";
 
+import {ExercisePage, UpdateProfile, UserOverview} from "../index"
+
 import DashboardBtn from "../../components/dashboard-button/DashboardBtn";
 import DashboardHeader from "../../components/dashboard-header/DashboardHeader";
 import BackToDashboardArrow from "../../components/back-to-db-arrow/BackToDashboardArrow";
-import ExercisePage from "../exercise-page/ExercisePage";
-import UpdateProfile from "../update-profile/UpdateProfile";
+
 
 import { AuthorizationContext } from "../../context/AuthorizationContext";
 import { ActiveUserContext } from "../../context/ActiveUserContext";
@@ -109,6 +110,8 @@ function AdminDashboard() {
     const { JWT } = useContext( AuthorizationContext )
     const { activeUserDetails } = useContext( ActiveUserContext )
 
+
+
     function setPractice(){
         setMadeChoice(true)
         setPlaytime(true)
@@ -150,9 +153,9 @@ function AdminDashboard() {
                     { playtime ?
                         <ExercisePage/>
                         : userOverview ?
-                            <h1>Hier komt nog een UserOverview component</h1>
+                            <UserOverview/>
                             :
-                            <UpdateProfile currentProfile={activeUserDetails}/>
+                            <UpdateProfile/>
                     }
                     <BackToDashboardArrow onClick={reset}/>
                 </>

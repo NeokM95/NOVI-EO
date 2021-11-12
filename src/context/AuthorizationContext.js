@@ -1,90 +1,87 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import jwt_decode from "jwt-decode"
 
-export const AuthorizationContext = createContext({})
+export const AuthorizationContext = createContext( {} )
 
-function AuthorizationContextProvider({children}){
+function AuthorizationContextProvider( { children } ) {
 
-    const [isAuthorized, toggleAuthorized] = useState(false)
-    const [isStudent, toggleIsStudent] = useState(false)
-    const [isTeacher, toggleIsTeacher] = useState(false)
-    const [isAdmin, toggleIsAdmin] = useState(false)
+    const [ isAuthorized, toggleAuthorized ] = useState( false )
+    const [ isStudent, toggleIsStudent ] = useState( false )
+    const [ isTeacher, toggleIsTeacher ] = useState( false )
+    const [ isAdmin, toggleIsAdmin ] = useState( false )
 
-    const [JWT, setJWT] = useState('')
+    const [ JWT, setJWT ] = useState( '' )
 
     const history = useHistory()
 
-    async function login(JWTInput){
+    async function login( JWTInput ) {
 
-        setJWT(JWTInput)
+        setJWT( JWTInput )
 
-        let userRole = await getUserRole(JWTInput)
+        let userRole = await getUserRole( JWTInput )
 
-        // Set JWT in localStorage not implemented jet:
-        // localStorage.setItem( 'token', JWT )
-
-        toggleAuthorized(true)
-
-        if(userRole === "ROLE_STUDENT"){
+        if ( userRole === "ROLE_STUDENT" ) {
             setStudent()
-            history.push("/student-dashboard")
-        }
-        else if(userRole === "ROLE_TEACHER"){
+            history.push( "/student-dashboard" )
+        } else if ( userRole === "ROLE_TEACHER" ) {
             setTeacher()
-            history.push("/teacher-dashboard")
-        }
-        else if(userRole === "ROLE_ADMIN"){
+            history.push( "/teacher-dashboard" )
+        } else if ( userRole === "ROLE_ADMIN" ) {
             setAdmin()
-            history.push("/admin-dashboard")
-        }else{
-            history.push("/")
+            history.push( "/admin-dashboard" )
+        } else {
+            history.push( "/" )
         }
+
+
 
     }
 
-    async function getUserRole(JWTInput){
 
-        let decodedToken = jwt_decode(JWTInput)
+    async function getUserRole( JWTInput ) {
+
+        let decodedToken = jwt_decode( JWTInput )
 
         try {
 
-            const result = await axios.get(`http://localhost:8088/user-role/${decodedToken.sub}`,{
+            const result = await axios.get( `http://localhost:8088/user-role/${ decodedToken.sub }`, {
                 headers: {
-                    'Authorization': `Bearer ${JWT}`
+                    'Authorization': `Bearer ${ JWT }`
                 }
-            })
+            } )
 
+            console.log("Authority:", result.data.authorities[0].authority)
             return result.data.authorities[0].authority
 
-        } catch(e){
-            console.log(e)
+        } catch ( e ) {
+            console.log( e )
         }
     }
 
-    function logout(){
-        toggleAuthorized(false)
+    function logout() {
+        toggleAuthorized( false )
 
-        history.push("/login")
+        history.push( "/login" )
     }
 
-    function setStudent(){
-        toggleIsStudent(true )
-        toggleIsTeacher(false)
-        toggleIsAdmin(false)
+    function setStudent() {
+        toggleIsStudent( true )
+        toggleIsTeacher( false )
+        toggleIsAdmin( false )
     }
 
-    function setTeacher(){
-        toggleIsStudent(false)
-        toggleIsTeacher(true)
-        toggleIsAdmin(false)
+    function setTeacher() {
+        toggleIsStudent( false )
+        toggleIsTeacher( true )
+        toggleIsAdmin( false )
     }
 
-    function setAdmin(){
-        toggleIsStudent(false)
-        toggleIsTeacher(false)
-        toggleIsAdmin(true)
+    function setAdmin() {
+        toggleIsStudent( false )
+        toggleIsTeacher( false )
+        toggleIsAdmin( true )
     }
 
 
@@ -96,12 +93,12 @@ function AuthorizationContextProvider({children}){
         isStudent,
         isTeacher,
         isAdmin,
-        JWT
+        JWT,
     }
 
-    return(
-        <AuthorizationContext.Provider value={contextData}>
-            {children}
+    return (
+        <AuthorizationContext.Provider value={ contextData }>
+            { children }
         </AuthorizationContext.Provider>
     )
 

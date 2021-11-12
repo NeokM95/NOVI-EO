@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 
-import { ExercisePage } from "../index";
+import { ExercisePage, UpdateProfile } from "../index"
 
 import DashboardBtn from "../../components/dashboard-button/DashboardBtn";
 import DashboardHeader from "../../components/dashboard-header/DashboardHeader";
@@ -9,7 +9,7 @@ import BackToDashboardArrow from "../../components/back-to-db-arrow/BackToDashbo
 import { ActiveUserContext } from "../../context/ActiveUserContext";
 
 import styles from "./studentDashboard.module.css"
-import UpdateProfile from "../update-profile/UpdateProfile";
+
 
 function StudentDashboard() {
 
@@ -48,7 +48,7 @@ function StudentDashboard() {
                     { playtime ?
                         <ExercisePage/>
                         :
-                        <UpdateProfile currentProfile={activeUserDetails}/>
+                        <UpdateProfile/>
                     }
                     <BackToDashboardArrow onClick={ reset }/>
                 </>
