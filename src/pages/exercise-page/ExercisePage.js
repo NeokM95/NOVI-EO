@@ -1,74 +1,115 @@
-import { plusMinusExercise } from '../../exercises/PlusMinusExercise'
-import { multiplyExercise } from '../../exercises/MultiplyExercise'
-import { divideExercise } from '../../exercises/DivideExercise'
-import React, { useState } from "react";
+import { plusMinusExercise, divideExercise, multiplyExercise } from "../../exercises";
+import React, { useContext, useEffect, useState } from "react";
 
 import styles from './exercisePage.module.css'
+import ExerciseBtn from "../../components/exercise-button/ExerciseBtn";
+
+import { ActiveUserContext } from "../../context/ActiveUserContext";
 
 function ExercisePage() {
 
-    const [ readyToPlay, setReadyToPlay ] = useState( false );
-    const [ readyToStart, setReadyToStart] = useState(true)
-    const [ exercises, setExercises ] = useState( [] )
-    const [ level, setLevel ] = useState( 1 )
-    const [ exerciseCounter, setExerciseCounter ] = useState( 0 )
-    const [ goodAnswers, setGoodAnswers ] = useState( 0 )
-    const [ falseAnswers, setFalseAnswers ] = useState( 0 )
+    const { activeUserDetails } = useContext( ActiveUserContext )
 
+    const [ levels, setLevels] = useState({
+        plusMinus: 1,
+        multiply: 1,
+        divide: 1
+    })
+
+    // readyToPlay === true after player hits 'play'-button
+    const [ readyToPlay, setReadyToPlay ] = useState( false );
+
+    // Array to push chosen exercises to
+    const [ exercises, setExercises ] = useState( [] )
+
+    // readyToStart === true if exercises.length > 0
+    const [ readyToStart, setReadyToStart ] = useState( false );
+
+    // States to store different counters.
+    const [ exerciseCounter, setExerciseCounter ] = useState( 0 )
+    const [ goodAnswerCounter, setGoodAnswerCounter ] = useState( 0 )
+    const [ falseAnswerCounter, setFalseAnswerCounter ] = useState( 0 )
+
+    // State toggles to disable input field + btn during pending.
     const [ pending, togglePending ] = useState( false )
+
+    // Store user input to compare with cpuAnswer
     const [ userInput, setUserInput ] = useState( '' )
+
+    // Set message depending on good/ false answer.
     const [ message, setMessage ] = useState( '' )
 
     // States to store generated sum(String) and answer(number)
     const [ cpuSum, setCpuSum ] = useState()
     const [ cpuAnswer, setCpuAnswer ] = useState()
 
-    // States to toggle between selected and unselected exercises
+    // States to toggle between selected and unselected button style.
     const [ plusMinusBtn, setPlusMinusBtn ] = useState( false )
     const [ multiplyBtn, setMultiplyBtn ] = useState( false )
     const [ divideBtn, setDivideBtn ] = useState( false )
 
-    // States to toggle themes of buttons for selected/ unselected exercises
-    const [ plusMinusBtnTheme, togglePlusMinusBtnTheme ] = useState( "unSelected-btn" )
-    const [ divideBtnTheme, toggleDivideBtnTheme ] = useState( "unSelected-btn" )
-    const [ multiplyBtnTheme, toggleMultiplyBtnTheme ] = useState( "unSelected-btn" )
-
     // This useRef is to use .focus (Autofocus is set in submitAnswer() )
     const numberInput = React.useRef( null );
 
-    // Generates random number, depending on array length, to eventually grap element in exercises array
-    function randomEx( ex ) {
-        return Math.floor( Math.random() * ex.length )
+    useEffect(() =>{
+
+        setLevels({
+            plusMinus: activeUserDetails.plusMinus,
+            multiply: activeUserDetails.multiply,
+            divide: activeUserDetails.divide
+        })
+
+    },[])
+
+
+    function addExercise( ex ) {
+        setExercises( [ ...exercises, ex ] )
+        setReadyToStart( true )
+    }
+
+    function removeExercise( ex ) {
+
+        let index = exercises.indexOf( ex )
+        exercises.splice( index, 1 )
+
+        if ( exercises.length < 1 ) {
+            setReadyToStart( false )
+        }
+
+    }
+
+    function randomExerciseGenerator( ex ) {
+        return Math.floor( Math.random() * ex )
     }
 
     function createSum() {
 
-        // exercises is an array and given as parameter so that randomEx can use .length
-        let randomExercise = exercises[randomEx( exercises )]
+        // exercises is the array which stores the by user chosen exercises.
+        let randomExercise = exercises[randomExerciseGenerator( exercises.length )]
 
-        let sum
+        let generatedSumArray
 
-        // cases are equal to all possible keys from exercises ( useState([]) )
+        // cases are equal to all possible keys from exercises([])
         switch ( randomExercise ) {
             case "plusMinus":
-                sum = plusMinusExercise( level )
-                setCpuSum( sum[0] )
-                setCpuAnswer( sum[1] )
+                generatedSumArray = plusMinusExercise( levels.plusMinus )
+                setCpuSum( generatedSumArray[0] )
+                setCpuAnswer( generatedSumArray[1] )
                 break;
             case "divide":
-                sum = divideExercise( level )
-                setCpuSum( sum[0] )
-                setCpuAnswer( sum[1] )
+                generatedSumArray = divideExercise( levels.divide )
+                setCpuSum( generatedSumArray[0] )
+                setCpuAnswer( generatedSumArray[1] )
                 break;
             case "multiply":
-                sum = multiplyExercise( level )
-                setCpuSum( sum[0] )
-                setCpuAnswer( sum[1] )
+                generatedSumArray = multiplyExercise( levels.multiply )
+                setCpuSum( generatedSumArray[0] )
+                setCpuAnswer( generatedSumArray[1] )
                 break;
             default:
-                sum = plusMinusExercise( level )
-                setCpuSum( sum[0] )
-                setCpuAnswer( sum[1] )
+                generatedSumArray = plusMinusExercise( levels.plusMinus )
+                setCpuSum( generatedSumArray[0] )
+                setCpuAnswer( generatedSumArray[1] )
                 break;
         }
 
@@ -84,11 +125,11 @@ function ExercisePage() {
         // check if userInput equals outcome of the sum.
         if ( cpuAnswer.toString() === userInput ) {
             setMessage( "Goedzo, je hebt het juiste antwoord gegeven!" )
-            setGoodAnswers( goodAnswers + 1 )
+            setGoodAnswerCounter( goodAnswerCounter + 1 )
         } else {
             setMessage( "Helaas, je hebt het foute antwoord gegeven.." +
                 `het antwoord had ${ cpuAnswer } moeten zijn!` )
-            setFalseAnswers( falseAnswers + 1 )
+            setFalseAnswerCounter( falseAnswerCounter + 1 )
         }
 
         // timeout is necessary to give the user some time to read the message,
@@ -104,26 +145,42 @@ function ExercisePage() {
         }
     }
 
-    function addEx( ex ) {
-        setExercises( [ ...exercises, ex ] )
-        setReadyToStart(false)
+    // these toggleFunctions toggles btn-style + presence in exercise array
+    function togglePlusMinus() {
+        setPlusMinusBtn( !plusMinusBtn )
+
+        if ( !plusMinusBtn ) {
+            addExercise( "plusMinus" )
+        } else {
+            removeExercise( "plusMinus" )
+        }
+
     }
+    function toggleMultiply() {
+        setMultiplyBtn( !multiplyBtn )
 
-    function removeEx( ex ) {
+        if ( !multiplyBtn ) {
+            addExercise( "multiply" )
+        } else {
+            removeExercise( "multiply" )
+        }
 
-        let index = exercises.indexOf( ex )
-        exercises.splice( index, 1 )
+    }
+    function toggleDivide() {
+        setDivideBtn( !divideBtn )
 
-        if (exercises.length < 1){
-            setReadyToStart(true)
+        if ( !divideBtn ) {
+            addExercise( "divide" )
+        } else {
+            removeExercise( "divide" )
         }
 
     }
 
     function reset() {
         setExerciseCounter( 0 )
-        setGoodAnswers( 0 )
-        setFalseAnswers( 0 )
+        setGoodAnswerCounter( 0 )
+        setFalseAnswerCounter( 0 )
         setMessage( '' )
         setUserInput( '' )
         togglePending( false )
@@ -131,69 +188,34 @@ function ExercisePage() {
         setPlusMinusBtn( false )
         setDivideBtn( false )
         setMultiplyBtn( false )
+        setReadyToStart( false )
         setExercises( [] )
-        togglePlusMinusBtnTheme( "unSelected-btn" )
-        toggleMultiplyBtnTheme( "unSelected-btn" )
-        toggleDivideBtnTheme( "unSelected-btn" )
-        setReadyToStart(true)
     }
-
 
     return (
         <div className={ styles["student-db-container"] }>
             { !readyToPlay ?
                 <>
 
-                    <h1>Wat wil je oefenen?</h1>
+                    <h1>{activeUserDetails.username}Wat wil je oefenen?</h1>
 
-                    <div className={ styles["ex-container"] }>
-                        <button className={ styles[`${ plusMinusBtnTheme }`] }
-                                onClick={ () => {
-                                    if ( !plusMinusBtn ) {
-                                        togglePlusMinusBtnTheme( "selected-btn" )
-                                        addEx( "plusMinus" )
-                                        setPlusMinusBtn( true )
-                                    } else {
-                                        togglePlusMinusBtnTheme( "unSelected-btn" )
-                                        removeEx( "plusMinus" )
-                                        setPlusMinusBtn( false )
-                                    }
-                                } }>
-                            Plus en min
-                        </button>
-                        <button className={ styles[`${ multiplyBtnTheme }`] }
-                                onClick={ () => {
-                                    if ( !multiplyBtn ) {
-                                        toggleMultiplyBtnTheme( "selected-btn" )
-                                        addEx( "multiply" )
-                                        setMultiplyBtn( true )
-                                    } else {
-                                        toggleMultiplyBtnTheme( "unSelected-btn" )
-                                        removeEx( "multiply" )
-                                        setMultiplyBtn( false )
-                                    }
-                                } }>
-                            Keer- sommen
-                        </button>
-                        <button className={ styles[`${ divideBtnTheme }`] }
-                                onClick={ () => {
-                                    if ( !divideBtn ) {
-                                        toggleDivideBtnTheme( "selected-btn" )
-                                        addEx( "divide" )
-                                        setDivideBtn( true )
-                                    } else {
-                                        toggleDivideBtnTheme( "unSelected-btn" )
-                                        removeEx( "divide" )
-                                        setDivideBtn( false )
-                                    }
-                                } }>
-                            Deel- sommen
-                        </button>
-
+                    <div className={ styles["exercise-container"] }>
+                        <ExerciseBtn style={ plusMinusBtn ? "selected-btn" : "unSelected-btn" }
+                                     onClick={ togglePlusMinus }>
+                            Plus en Min
+                        </ExerciseBtn>
+                        <ExerciseBtn style={ multiplyBtn ? "selected-btn" : "unSelected-btn" }
+                                     onClick={ toggleMultiply }>
+                            Keer- Sommen
+                        </ExerciseBtn>
+                        <ExerciseBtn style={ divideBtn ? "selected-btn" : "unSelected-btn" }
+                                     onClick={ toggleDivide }>
+                            Deel- Sommen
+                        </ExerciseBtn>
                     </div>
 
                     <button className={ styles["play-btn"] }
-                            disabled={readyToStart}
+                            disabled={ !readyToStart }
                             onClick={ () => {
                                 setReadyToPlay( true )
                                 createSum()
@@ -240,10 +262,10 @@ function ExercisePage() {
                         :
                         <div>
                             <h1>
-                                Goede antwoorden: { goodAnswers }
+                                Goede antwoorden: { goodAnswerCounter }
                             </h1>
                             <h1>
-                                Foute antwoorden: { falseAnswers }
+                                Foute antwoorden: { falseAnswerCounter }
                             </h1>
 
                             <button onClick={ reset }>

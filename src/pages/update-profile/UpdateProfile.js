@@ -1,8 +1,14 @@
-import styles from "./updateProfile.module.css"
+import { useContext } from "react";
+
 import LevelBtn from "../../components/level-button/LevelBtn";
 
+import styles from "./updateProfile.module.css"
 
-function UpdateProfile( { currentProfile } ) {
+import { ActiveUserContext } from "../../context/ActiveUserContext";
+
+function UpdateProfile( ) {
+
+    const { activeUserDetails } = useContext( ActiveUserContext )
 
     return (
         <>
@@ -11,7 +17,7 @@ function UpdateProfile( { currentProfile } ) {
                     Gebruikersnaam:
                     <input
                         type="text"
-                        value={ currentProfile.username }
+                        value={ activeUserDetails.username }
                         disabled
                     />
                 </label>
@@ -19,15 +25,15 @@ function UpdateProfile( { currentProfile } ) {
                     Email:
                     <input
                         type="text"
-                        value={ currentProfile.email }
+                        value={ activeUserDetails.email }
                         disabled
                     />
                 </label>
                 Niveaus:
                 <div className={ styles["level-container"] }>
-                    <LevelBtn title="Plus Min" level={ currentProfile.plusMinus }/>
-                    <LevelBtn title="Keer Sommen" level={ currentProfile.multiply }/>
-                    <LevelBtn title="Deel Sommen" level={ currentProfile.divide }/>
+                    <LevelBtn title="Plus Min" level={ activeUserDetails.plusMinus }/>
+                    <LevelBtn title="Keer Sommen" level={ activeUserDetails.multiply }/>
+                    <LevelBtn title="Deel Sommen" level={ activeUserDetails.divide }/>
                 </div>
 
                 <div className={ styles["button-container"] }>

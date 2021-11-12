@@ -12,69 +12,11 @@
     color: active-white;
 }
 
-.ex-container {
+.exercise-container {
     margin: 16px 0;
     display: flex;
 }
 
-.selected-btn {
-
-    height: 110px;
-    width: 110px;
-
-    font-weight: bold;
-    font-size: 16px;
-    color: active-white;
-
-    background-color: transparent;
-
-    padding: 4px;
-    margin: 4px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-
-    border: border1 active-white;
-    border-radius: 50%;
-
-    cursor: pointer;
-
-}
-
-.unSelected-btn {
-    height: 110px;
-    width: 110px;
-
-    font-weight: bold;
-    font-size: 16px;
-    color: disabled-gray;
-
-    background-color: transparent;
-
-    padding: 4px;
-    margin: 4px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    text-align: center;
-
-    border: border1 disabled-gray;
-    border-radius: 50%;
-
-    cursor: pointer;
-}
-
-.unSelected-btn:hover {
-
-    color: active-white;
-    border: border1 active-white;
-
-}
 
 .play-btn {
 
