@@ -1,0 +1,12 @@
+.delete-acc-btn {
+    background-color: transparent;
+    border: none;
+    color: hsl(0, 95%, 40%);
+    font-weight: bold;
+}
+
+.user-overview-header {
+    color: hsl(0, 100%, 100%);
+    margin-bottom: 24px;
+
+}
