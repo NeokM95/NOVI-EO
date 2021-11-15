@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import AslBtn from "../../components/add-subtract-level-button/AslBtn";
 import axios from "axios";
@@ -11,35 +11,39 @@ function StudentOverview() {
 
     const { JWT } = useContext( AuthorizationContext )
 
-    async function getStudents() {
+    useEffect( () => {
 
-        try {
+        async function getStudents() {
 
-            let result = await axios.get( "http://localhost:8088/api/v1/teacher/view/students", {
-                headers: {
-                    'Authorization': `Bearer ${ JWT }`
-                }
-            } )
+            try {
 
-            setStudentData( [ ...result.data ] )
+                let result = await axios.get( "http://localhost:8088/api/v1/teacher/view/students", {
+                    headers: {
+                        'Authorization': `Bearer ${ JWT }`
+                    }
+                } )
 
-            console.log( result.data )
+                setStudentData( [ ...result.data ] )
 
-            console.log( "get students lukt." )
+                console.log( result.data )
 
-        } catch ( e ) {
+                console.log( "get students lukt." )
 
-            console.log( e )
+            } catch ( e ) {
+
+                console.log( e )
+            }
+
         }
 
-    }
+        getStudents()
+
+    }, [] )
 
 
     return (
         <>
             <h1>Leerlingen overzicht!!</h1>
-
-            <button onClick={ getStudents }>Klik voor data</button>
 
             <h3>Total students: { studentData.length }</h3>
 
@@ -54,17 +58,12 @@ function StudentOverview() {
                     <th>Meetkunde</th>
                 </tr>
                 { studentData.map( ( student ) => {
-
-
-                    // Hier zit nu de bug!
-                    setStudentName(student.username)
-
                     return (
                         <tr>
                             <td>{ student.username } </td>
-                            <td>{ student.plusMinus }<AslBtn user={ studentName } subject={ "plus-minus" }/></td>
-                            <td>{ student.multiply } <AslBtn user={ studentName } subject={ "multiply" }/></td>
-                            <td>{ student.divide } <AslBtn user={ studentName } subject={ "divide" }/></td>
+                            <td>{ student.plusMinus }<AslBtn user={ student.username } subject="plus-minus"/></td>
+                            <td>{ student.multiply } <AslBtn user={ student.username } subject="multiply"/></td>
+                            <td>{ student.divide } <AslBtn user={ student.username } subject="divide"/></td>
                             <td> -</td>
                             <td> -</td>
                             <td> -</td>

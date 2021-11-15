@@ -1,13 +1,25 @@
 import styles from './aslbtn.module.css'
 
-function AslBtn({username, subject})  {
+function AslBtn({user, subject})  {
 
     async function increaseLevel(){
-        console.log(username + " " + subject)
+
+        try {
+
+        }catch(e){
+            console.error(e)
+        }
+
     }
 
     async function decreaseLevel(){
-        console.log(username + " " + subject)
+
+        try {
+
+        }catch(e){
+            console.error(e)
+        }
+
     }
 
 
